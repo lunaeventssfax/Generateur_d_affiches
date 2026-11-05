@@ -1,0 +1,1850 @@
+<!DOCTYPE html>
+<html lang="fr">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+<meta name="robots" content="noindex, nofollow">
+<title>Luna Events · Générateur d’affiches de packs</title>
+<meta name="description" content="Outil officiel Luna Events Sfax pour la création, personnalisation et exportation d’affiches et de comparatifs d’offres en haute définition.">
+<meta name="theme-color" content="#0a0907">
+<meta name="apple-mobile-web-app-capable" content="yes">
+<meta name="apple-mobile-web-app-status-bar-style" content="black-translucent">
+<meta name="apple-mobile-web-app-title" content="Luna Events">
+
+<!-- Favicon vectoriel & Icône tactile Apple -->
+<link rel="icon" type="image/png" href="assets/favicon.png">
+<link rel="apple-touch-icon" href="assets/favicon.png">
+<link rel="manifest" href="site.webmanifest">
+
+<!-- Open Graph SEO -->
+<meta property="og:title" content="Luna Events · Générateur d’affiches">
+<meta property="og:description" content="Générateur premium d’affiches et de comparatifs d’offres pour Luna Events Sfax.">
+<meta property="og:type" content="website">
+<meta property="og:locale" content="fr_FR">
+<meta property="og:image" content="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 64 64'%3E%3Cpath fill='%23d9b45b' d='M42 6A28 28 0 1 0 58 46 32 32 0 0 1 42 6z'/%3E%3Cpolygon fill='%23f6e3a1' points='48,16 51,24 60,24 53,29 55,38 48,32 41,38 43,29 36,24 45,24'/%3E%3C/svg%3E">
+
+<!-- Twitter Card SEO -->
+<meta name="twitter:card" content="summary">
+<meta name="twitter:title" content="Luna Events · Générateur d’affiches">
+<meta name="twitter:description" content="Générateur premium d’affiches et de comparatifs d’offres pour Luna Events Sfax.">
+<meta name="twitter:image" content="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 64 64'%3E%3Cpath fill='%23d9b45b' d='M42 6A28 28 0 1 0 58 46 32 32 0 0 1 42 6z'/%3E%3Cpolygon fill='%23f6e3a1' points='48,16 51,24 60,24 53,29 55,38 48,32 41,38 43,29 36,24 45,24'/%3E%3C/svg%3E">
+
+<!-- Polices Google Fonts pré-connectées avec font-display: swap -->
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Cinzel:wght@500;700&family=Cormorant+Garamond:ital,wght@0,500;0,700;1,500&family=Amiri:wght@400;700&display=swap" rel="stylesheet">
+
+<style>
+:root {
+  color-scheme: dark;
+  box-sizing: border-box;
+  --bg: #0a0907;
+  --panel: #14110c;
+  --panel-hover: #1b1710;
+  --line: #3a2f18;
+  --gold: #d9b45b;
+  --gold2: #f6e3a1;
+  --txt: #f5edd8;
+  --mut: #cdbc95;
+  --focus-ring: #f6e3a1;
+  --focus-glow: rgba(217, 180, 91, 0.45);
+}
+html {
+  box-sizing: border-box;
+  scroll-behavior: smooth;
+  scroll-padding-top: env(safe-area-inset-top, 0px);
+  -webkit-text-size-adjust: 100%;
+}
+*, *::before, *::after {
+  box-sizing: border-box;
+}
+[hidden] {
+  display: none !important;
+}
+body {
+  margin: 0;
+  background: var(--bg);
+  color: var(--txt);
+  font-family: "Cormorant Garamond", Georgia, serif;
+  font-size: 18px;
+  line-height: 1.45;
+  padding-top: env(safe-area-inset-top, 0px);
+  padding-bottom: env(safe-area-inset-bottom, 0px);
+  padding-left: env(safe-area-inset-left, 0px);
+  padding-right: env(safe-area-inset-right, 0px);
+  overflow-x: hidden;
+}
+
+/* Accessibilité WCAG 2.2 : Lien d'évitement au contenu */
+.skip-link {
+  position: absolute;
+  top: -120px;
+  left: 16px;
+  background: var(--gold2);
+  color: #14110c;
+  font-family: Cinzel, Georgia, serif;
+  font-weight: 700;
+  font-size: 14px;
+  padding: 12px 20px;
+  border-radius: 6px;
+  z-index: 10000;
+  text-decoration: none;
+  box-shadow: 0 4px 20px rgba(0,0,0,0.8);
+  transition: top 0.2s cubic-bezier(0.16, 1, 0.3, 1);
+}
+.skip-link:focus {
+  top: 14px;
+  outline: 3px solid #fff;
+  outline-offset: 2px;
+}
+
+/* Accessibilité WCAG 2.2 : Anneau doré de focus visible partout */
+*:focus {
+  outline: none;
+}
+*:focus-visible {
+  outline: 2px solid var(--focus-ring) !important;
+  outline-offset: 2px !important;
+  box-shadow: 0 0 0 4px var(--focus-glow) !important;
+}
+
+/* En-tête */
+header {
+  display: flex;
+  align-items: center;
+  gap: 16px;
+  padding: 16px 24px;
+  border-bottom: 1px solid var(--line);
+  background: rgba(20, 17, 12, 0.6);
+  backdrop-filter: blur(8px);
+}
+header img {
+  height: 52px;
+  width: auto;
+  mix-blend-mode: screen;
+  flex-shrink: 0;
+}
+header h1 {
+  font: 700 22px Cinzel, Georgia, serif;
+  margin: 0;
+  letter-spacing: .08em;
+  color: var(--gold2);
+  line-height: 1.2;
+}
+header p {
+  margin: 2px 0 0;
+  color: var(--mut);
+  font-style: italic;
+  font-size: 16px;
+}
+
+/* Grille Desktop 2 colonnes */
+main {
+  display: grid;
+  grid-template-columns: minmax(320px, 440px) 1fr;
+  grid-template-areas:
+    "form stage"
+    "packs stage";
+  gap: 22px;
+  padding: 22px;
+  max-width: 1320px;
+  margin: 0 auto;
+  align-items: start;
+}
+.col-form {
+  grid-area: form;
+}
+.col-packs {
+  grid-area: packs;
+}
+.stage {
+  grid-area: stage;
+  position: sticky;
+  top: 14px;
+  align-self: start;
+  text-align: center;
+}
+
+/* Panneaux */
+.panel {
+  box-sizing: border-box;
+  width: 100%;
+  background: var(--panel);
+  border: 1px solid var(--line);
+  border-radius: 12px;
+  padding: 18px;
+  margin-bottom: 18px;
+  box-shadow: 0 4px 20px rgba(0,0,0,0.3);
+  transition: border-color 0.2s ease;
+}
+.panel:hover {
+  border-color: rgba(217, 180, 91, 0.4);
+}
+details.panel {
+  box-sizing: border-box;
+  width: 100%;
+}
+details.panel summary {
+  cursor: pointer;
+  list-style: none;
+  user-select: none;
+}
+details.panel summary::-webkit-details-marker {
+  display: none;
+}
+details.panel summary h2 {
+  margin: 0;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  width: 100%;
+}
+details.panel summary .toggle-icon {
+  font-size: 14px;
+  color: var(--gold);
+  transition: transform 0.2s ease;
+}
+details.panel[open] summary .toggle-icon {
+  transform: rotate(180deg);
+}
+details.panel[open] summary h2 {
+  margin-bottom: 14px;
+}
+h2 {
+  font: 700 16px Cinzel, Georgia, serif;
+  margin: 0 0 14px;
+  color: var(--gold);
+  letter-spacing: .06em;
+  display: flex;
+  align-items: center;
+  gap: 8px;
+}
+label {
+  display: block;
+  margin: 12px 0 4px;
+  color: var(--mut);
+  font-size: 16px;
+  font-weight: 500;
+}
+
+/* Formulaires : 100% responsive, touch-friendly min-height 44px, police 16px pour éliminer le zoom auto iOS */
+input:not([type="checkbox"]):not([type="radio"]):not([type="color"]), select, textarea {
+  box-sizing: border-box;
+  width: 100%;
+  max-width: 100%;
+  min-height: 44px;
+  background: #0d0b07;
+  color: var(--txt);
+  border: 1px solid var(--line);
+  border-radius: 6px;
+  padding: 10px 12px;
+  font-family: inherit;
+  font-size: 16px;
+  line-height: 1.4;
+  transition: border-color 0.15s ease, box-shadow 0.15s ease, background-color 0.15s ease;
+  -webkit-appearance: none;
+  appearance: none;
+}
+select {
+  background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='16' height='16' viewBox='0 0 24 24' fill='none' stroke='%23d9b45b' stroke-width='2' stroke-linecap='round' stroke-linejoin='round'%3E%3Cpolyline points='6 9 12 15 18 9'%3E%3C/polyline%3E%3C/svg%3E");
+  background-repeat: no-repeat;
+  background-position: right 12px center;
+  padding-right: 36px;
+  cursor: pointer;
+}
+select option {
+  background: #14110c;
+  color: var(--txt);
+}
+textarea {
+  resize: vertical;
+  min-height: 120px;
+}
+input::placeholder, textarea::placeholder {
+  color: #8e7f5e;
+  opacity: 1;
+}
+input:hover, select:hover, textarea:hover {
+  border-color: #554425;
+}
+input[readonly] {
+  opacity: .8;
+  cursor: not-allowed;
+  background: #090805;
+}
+.row {
+  display: grid;
+  grid-template-columns: minmax(0, 1fr) minmax(0, 1fr);
+  gap: 12px;
+}
+.row > * {
+  min-width: 0;
+}
+
+/* Boutons : min-height 44px, min-width 44px, hover, focus-visible, active conformes Apple HIG & Material Design */
+button {
+  font: 700 14px Cinzel, Georgia, serif;
+  letter-spacing: .05em;
+  background: transparent;
+  color: var(--gold2);
+  border: 1px solid var(--gold);
+  border-radius: 6px;
+  padding: 10px 14px;
+  min-height: 44px;
+  min-width: 44px;
+  cursor: pointer;
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  text-align: center;
+  touch-action: manipulation;
+  user-select: none;
+  -webkit-user-select: none;
+  transition: background 0.15s ease, border-color 0.15s ease, color 0.15s ease, transform 0.1s ease, filter 0.15s ease, box-shadow 0.15s ease;
+}
+button:hover {
+  background: #2a210f;
+  border-color: var(--gold2);
+  color: #fff;
+}
+button:active {
+  transform: scale(0.98);
+  filter: brightness(0.9);
+}
+button:disabled {
+  opacity: .35;
+  cursor: not-allowed;
+  transform: none;
+  filter: none;
+}
+button.main {
+  background: linear-gradient(135deg, #8a6a1f, #e9cf85 50%, #a98334);
+  color: #17110a;
+  border: 0;
+  width: 100%;
+  padding: 12px 18px;
+  font-size: 16px;
+  font-weight: 700;
+  box-shadow: 0 4px 16px rgba(217, 180, 91, 0.25);
+}
+button.main:hover {
+  filter: brightness(1.12);
+  box-shadow: 0 6px 22px rgba(217, 180, 91, 0.35);
+}
+button.main:active {
+  transform: scale(0.98);
+  filter: brightness(0.95);
+}
+.btns {
+  display: flex;
+  gap: 8px;
+  flex-wrap: wrap;
+  margin-top: 12px;
+}
+.btns button {
+  flex: 1 1 auto;
+}
+
+/* Canvas & Stage : Proportions toujours conservées, aucun overflow, aucun zoom cassé */
+canvas {
+  width: 100%;
+  max-width: 100%;
+  height: auto;
+  max-height: 75vh;
+  object-fit: contain;
+  border: 1px solid var(--line);
+  border-radius: 8px;
+  box-shadow: 0 10px 50px rgba(0, 0, 0, 0.85);
+  display: block;
+  margin: 0 auto;
+  background: #050505;
+}
+#msg {
+  min-height: 28px;
+  color: var(--gold2);
+  margin-top: 10px;
+  font-size: 15px;
+  font-style: italic;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  text-align: center;
+  padding: 2px 8px;
+}
+
+/* Liste des packs */
+.pk {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 10px;
+  padding: 8px 10px;
+  border-bottom: 1px solid var(--line);
+  border-radius: 6px;
+  transition: background-color 0.15s ease, border-color 0.15s ease;
+}
+.pk.pk-active {
+  background: rgba(217, 180, 91, 0.12) !important;
+  border: 1px solid var(--gold) !important;
+  margin-bottom: 4px;
+  box-shadow: 0 0 10px rgba(217, 180, 91, 0.2);
+}
+.pk-badge {
+  display: inline-block;
+  margin-left: 8px;
+  padding: 2px 8px;
+  background: var(--gold);
+  color: #0a0907;
+  font-size: 11px;
+  font-weight: 700;
+  font-family: Cinzel, serif;
+  border-radius: 10px;
+  letter-spacing: .04em;
+  vertical-align: middle;
+}
+.pk span {
+  flex: 1;
+  word-break: break-word;
+}
+.pk b {
+  color: var(--gold);
+  min-width: 44px;
+}
+.pk button {
+  padding: 8px 12px;
+  font-size: 13px;
+  min-height: 44px;
+  min-width: 44px;
+  flex-shrink: 0;
+}
+.empty {
+  color: var(--mut);
+  font-style: italic;
+  padding: 8px 0;
+}
+
+/* Modales centrées, scrollables, avec boutons toujours visibles */
+.ovl {
+  position: fixed;
+  inset: 0;
+  background: rgba(0, 0, 0, 0.78);
+  backdrop-filter: blur(5px);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  padding: env(safe-area-inset-top, 14px) env(safe-area-inset-right, 14px) env(safe-area-inset-bottom, 14px) env(safe-area-inset-left, 14px);
+  z-index: 1000;
+  overscroll-behavior: contain;
+}
+.ovl[hidden] {
+  display: none !important;
+}
+.dlg {
+  background: var(--panel);
+  border: 1px solid var(--gold);
+  border-radius: 14px;
+  width: min(640px, 100%);
+  max-height: min(92vh, calc(100dvh - 28px));
+  display: flex;
+  flex-direction: column;
+  box-shadow: 0 20px 80px rgba(0, 0, 0, 0.95);
+  overflow: hidden;
+}
+.dh {
+  flex-shrink: 0;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 12px;
+  padding: 14px 18px;
+  border-bottom: 1px solid var(--line);
+  background: var(--panel);
+}
+.dh h2 {
+  margin: 0;
+}
+#cmpX {
+  min-width: 44px;
+  min-height: 44px;
+  padding: 8px;
+  font-size: 18px;
+  line-height: 1;
+}
+.db {
+  flex: 1 1 auto;
+  overflow-y: auto;
+  -webkit-overflow-scrolling: touch;
+  padding: 14px 18px 18px;
+}
+.db h3 {
+  font: 700 15px Cinzel, Georgia, serif;
+  color: var(--gold);
+  letter-spacing: .06em;
+  margin: 20px 0 8px;
+}
+.db h3:first-child {
+  margin-top: 4px;
+}
+.db h3 small {
+  color: var(--mut);
+  font: italic 15px "Cormorant Garamond", serif;
+}
+.ck {
+  display: flex;
+  align-items: center;
+  gap: 12px;
+  margin: 0;
+  padding: 8px 10px;
+  color: var(--txt);
+  cursor: pointer;
+  min-height: 44px;
+  border-radius: 8px;
+  user-select: none;
+  -webkit-user-select: none;
+  transition: background-color 0.15s ease;
+}
+.ck:hover {
+  background-color: rgba(217, 180, 91, 0.08);
+}
+.ck input[type="checkbox"] {
+  -webkit-appearance: none !important;
+  -moz-appearance: none !important;
+  appearance: none !important;
+  width: 22px !important;
+  height: 22px !important;
+  min-width: 22px !important;
+  min-height: 22px !important;
+  max-width: 22px !important;
+  max-height: 22px !important;
+  background-color: #0d0b07 !important;
+  border: 2px solid var(--gold) !important;
+  border-radius: 5px !important;
+  margin: 0 10px 0 0 !important;
+  padding: 0 !important;
+  cursor: pointer !important;
+  flex-shrink: 0 !important;
+  display: inline-block !important;
+  vertical-align: middle !important;
+  transition: all 0.15s ease-in-out !important;
+}
+.ck input[type="checkbox"]:hover {
+  border-color: var(--gold2) !important;
+  box-shadow: 0 0 8px rgba(217, 180, 91, 0.4) !important;
+}
+.ck input[type="checkbox"]:checked {
+  background-color: var(--gold) !important;
+  border-color: var(--gold2) !important;
+  background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 24 24' fill='none' stroke='%230a0907' stroke-width='3.5' stroke-linecap='round' stroke-linejoin='round'%3E%3Cpolyline points='20 6 9 17 4 12'%3E%3C/polyline%3E%3C/svg%3E") !important;
+  background-size: 15px 15px !important;
+  background-position: center !important;
+  background-repeat: no-repeat !important;
+  box-shadow: 0 0 10px rgba(217, 180, 91, 0.5) !important;
+}
+.ck input[type="checkbox"]:focus-visible {
+  outline: 2px solid var(--gold2) !important;
+  outline-offset: 2px !important;
+  box-shadow: 0 0 0 4px var(--focus-glow) !important;
+}
+.ck input[type="checkbox"]:disabled {
+  opacity: 0.35 !important;
+  cursor: not-allowed !important;
+  border-color: #554425 !important;
+}
+.ck input[type="radio"] {
+  -webkit-appearance: none !important;
+  -moz-appearance: none !important;
+  appearance: none !important;
+  width: 22px !important;
+  height: 22px !important;
+  min-width: 22px !important;
+  min-height: 22px !important;
+  max-width: 22px !important;
+  max-height: 22px !important;
+  background-color: #0d0b07 !important;
+  border: 2px solid var(--gold) !important;
+  border-radius: 50% !important;
+  margin: 0 10px 0 0 !important;
+  padding: 0 !important;
+  cursor: pointer !important;
+  flex-shrink: 0 !important;
+  display: inline-block !important;
+  vertical-align: middle !important;
+  transition: all 0.15s ease-in-out !important;
+}
+.ck input[type="radio"]:hover {
+  border-color: var(--gold2) !important;
+  box-shadow: 0 0 8px rgba(217, 180, 91, 0.4) !important;
+}
+.ck input[type="radio"]:checked {
+  border-color: var(--gold2) !important;
+  background-color: var(--gold) !important;
+  background-image: radial-gradient(circle, #0a0907 38%, transparent 42%) !important;
+  box-shadow: 0 0 10px rgba(217, 180, 91, 0.5) !important;
+}
+.ck input[type="radio"]:focus-visible {
+  outline: 2px solid var(--gold2) !important;
+  outline-offset: 2px !important;
+  box-shadow: 0 0 0 4px var(--focus-glow) !important;
+}
+.ck span {
+  font-size: 17px;
+  flex: 1;
+}
+.df {
+  flex-shrink: 0;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 12px;
+  padding: 14px 18px;
+  border-top: 1px solid var(--line);
+  background: var(--panel);
+  flex-wrap: wrap;
+}
+#cmpCount {
+  color: var(--gold2);
+  font-weight: 700;
+  font-size: 16px;
+}
+#cmpHint {
+  color: var(--mut);
+  font-style: italic;
+  font-size: 14px;
+}
+.df button.main {
+  width: auto;
+  flex: 1;
+  min-width: 220px;
+}
+
+/* Chips & Segments */
+.chips, .seg {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 8px;
+  align-items: center;
+  margin: 6px 0 10px;
+}
+.chips button, .seg button {
+  padding: 8px 12px;
+  font-size: 13px;
+  min-height: 44px;
+  min-width: 44px;
+}
+.chips button[aria-pressed=true], .seg button[aria-pressed=true] {
+  background: #2a210f;
+  border-color: var(--gold2);
+  color: #fff;
+  box-shadow: 0 0 0 1px var(--gold2);
+}
+.chips .sw {
+  width: 44px;
+  height: 44px;
+  min-width: 44px;
+  min-height: 44px;
+  padding: 0;
+  border-radius: 50%;
+  border: 2px solid var(--line);
+}
+.chips .sw[aria-pressed=true] {
+  border-color: var(--gold2);
+  box-shadow: 0 0 0 2px var(--panel), 0 0 0 4px var(--gold2);
+}
+.chips input[type=color] {
+  width: 48px;
+  height: 44px;
+  min-height: 44px;
+  padding: 2px;
+  cursor: pointer;
+  border-radius: 6px;
+}
+.chips input.on {
+  outline: 2px solid var(--gold2);
+}
+.gl {
+  display: block;
+  margin: 12px 0 4px;
+  color: var(--mut);
+  font-size: 16px;
+  font-weight: 500;
+}
+#cmpPrev {
+  width: 100%;
+  height: auto;
+  max-height: none;
+  box-shadow: none;
+  margin-bottom: 8px;
+  border-radius: 6px;
+}
+
+/* =================================================================
+   RESPONSIVE DESIGN ADAPTATIF (320px - 1280px)
+   ================================================================= */
+
+/* SOUS 820px : ORDRE OBLIGATOIRE MOBILE
+   1 Aperçu Canvas (.stage)
+   2 Formulaire (.col-form)
+   3 Liste des packs (.col-packs) */
+@media (max-width: 820px) {
+  header {
+    padding: 12px 16px;
+  }
+  header img {
+    height: 46px;
+  }
+  header h1 {
+    font-size: 20px;
+  }
+  header p {
+    font-size: 14px;
+  }
+  main {
+    display: flex;
+    flex-direction: column;
+    padding: 14px;
+    gap: 16px;
+  }
+  .stage {
+    order: 1;
+    position: static;
+    top: auto;
+    width: 100%;
+  }
+  .col-form {
+    order: 2;
+    width: 100%;
+  }
+  .col-packs {
+    order: 3;
+    width: 100%;
+  }
+  canvas {
+    max-height: 60vh;
+  }
+  .panel {
+    padding: 16px;
+    margin-bottom: 16px;
+  }
+  .dlg {
+    width: 100%;
+    max-height: 94vh;
+    border-radius: 12px;
+  }
+  .dh, .df {
+    padding: 12px 16px;
+  }
+  .db {
+    padding: 12px 16px;
+  }
+}
+
+/* Petits écrans mobiles (<= 480px) : 320px, 360px, 375px, 390px, 414px */
+@media (max-width: 480px) {
+  header {
+    gap: 12px;
+    padding: 10px 12px;
+  }
+  header img {
+    height: 40px;
+  }
+  header h1 {
+    font-size: 18px;
+  }
+  header p {
+    font-size: 13px;
+  }
+  main {
+    padding: 10px;
+    gap: 14px;
+  }
+  canvas {
+    max-height: 55vh;
+  }
+  .row {
+    grid-template-columns: 1fr;
+    gap: 8px;
+  }
+  .btns {
+    gap: 6px;
+  }
+  .btns button {
+    flex: 1 1 calc(50% - 6px);
+    font-size: 13px;
+    padding: 10px 8px;
+  }
+  button.main {
+    font-size: 15px;
+    padding: 12px 14px;
+  }
+  .df {
+    flex-direction: column;
+    align-items: stretch;
+    gap: 10px;
+  }
+  .df button.main {
+    width: 100%;
+    min-width: unset;
+  }
+  .pk {
+    flex-wrap: wrap;
+  }
+}
+</style>
+</head>
+<body>
+
+<!-- Lien d'évitement WCAG 2.2 -->
+<a href="#main-content" class="skip-link">Aller au contenu</a>
+
+<header>
+  <img src="assets/logo-luna.png" alt="Logo Luna Events" width="54" height="54">
+  <div>
+    <h1>LUNA EVENTS</h1>
+    <p>Générateur d’affiches de packs</p>
+  </div>
+</header>
+
+<main id="main-content">
+  <!-- 2 Formulaire (Ordre 2 sous 820px) -->
+  <section class="col-form" id="colForm" aria-label="Paramètres du pack">
+    <div class="panel">
+      <h2>Le pack</h2>
+      <label for="name">Nom du pack</label>
+      <input type="text" id="name" maxlength="60" autocomplete="off" placeholder="Ex: Pack Prestige" aria-label="Nom du pack">
+      
+      <label for="ar">Sous-titre en arabe (facultatif)</label>
+      <input type="text" id="ar" dir="rtl" maxlength="80" autocomplete="off" placeholder="مثال: باقة بريستيج" aria-label="Sous-titre en arabe (facultatif)">
+      
+      <label for="svc">Prestations (une par ligne)</label>
+      <textarea id="svc" rows="5" maxlength="1500" placeholder="Ex:&#10;Son professionnel&#10;Éclairage de salle&#10;Photo de l’événement" aria-label="Prestations (une par ligne)"></textarea>
+      
+      <div class="row">
+        <div>
+          <label for="plabel">Texte avant le prix</label>
+          <input type="text" id="plabel" maxlength="40" autocomplete="off" placeholder="Ex: À partir de" aria-label="Texte avant le prix">
+        </div>
+        <div>
+          <label for="price">Prix</label>
+          <input type="text" id="price" inputmode="numeric" maxlength="12" autocomplete="off" placeholder="Ex: 800" aria-label="Prix">
+        </div>
+      </div>
+      
+      <label for="unit">Unité</label>
+      <input type="text" id="unit" maxlength="10" autocomplete="off" placeholder="Ex: DT" aria-label="Unité monétaire">
+    </div>
+
+    <div class="panel">
+      <h2>Contact et style</h2>
+      <label for="tag">Slogan</label>
+      <input type="text" id="tag" maxlength="80" autocomplete="off" placeholder="Ex: Créateurs de moments magiques" aria-label="Slogan">
+      
+      <label for="phones">Téléphones</label>
+      <input type="tel" id="phones" inputmode="tel" autocomplete="tel" maxlength="60" placeholder="Ex: 26 48 49 49 | 55 44 65 12" aria-label="Numéros de téléphone">
+      
+      <label for="handle">Instagram 🔒 (verrouillé)</label>
+      <input type="text" id="handle" readonly value="instagram.com/luna.events.sfax" title="Compte Instagram officiel verrouillé" aria-label="Instagram officiel (verrouillé)">
+      
+      <div class="row">
+        <div>
+          <label for="fmt">Format</label>
+          <select id="fmt" aria-label="Format de l'affiche">
+            <option value="1350">Post portrait 1080×1350</option>
+            <option value="1080">Post carré 1080×1080</option>
+            <option value="1920">Story 1080×1920</option>
+          </select>
+        </div>
+        <div>
+          <label for="theme">Thème</label>
+          <select id="theme" aria-label="Thème graphique">
+            <option value="or">Or sur noir</option>
+            <option value="nuit">Nuit violette</option>
+            <option value="blanc">Blanc et or</option>
+            <option value="rose">Rose poudré</option>
+            <option value="emeraude">Émeraude</option>
+            <option value="minimal">Blanc minimal</option>
+          </select>
+        </div>
+      </div>
+    </div>
+
+    <details class="panel panel-collapsible" open>
+      <summary><h2>Style avancé <span class="toggle-icon">▾</span></h2></summary>
+      <div class="row">
+        <div>
+          <label for="font">Police du titre</label>
+          <select id="font" aria-label="Police du titre">
+            <option value="Cinzel">Élégante</option>
+            <option value="Cormorant Garamond">Classique</option>
+            <option value="Amiri">Calligraphie</option>
+          </select>
+        </div>
+        <div>
+          <label for="frame">Cadre</label>
+          <select id="frame" aria-label="Style de cadre">
+            <option value="double">Double filet</option>
+            <option value="coins">Coins décorés</option>
+            <option value="none">Aucun</option>
+          </select>
+        </div>
+      </div>
+      <div class="row">
+        <div>
+          <label for="rtl">Version arabe</label>
+          <select id="rtl" aria-label="Version arabe">
+            <option value="0">Non</option>
+            <option value="1">Titre en arabe</option>
+          </select>
+        </div>
+        <div>
+          <label for="wm">Filigrane</label>
+          <select id="wm" aria-label="Afficher le filigrane">
+            <option value="0">Non</option>
+            <option value="1">Oui</option>
+          </select>
+        </div>
+      </div>
+    </details>
+
+    <details class="panel panel-collapsible" open>
+      <summary><h2>Promo et QR code <span class="toggle-icon">▾</span></h2></summary>
+      <div class="row">
+        <div>
+          <label for="old">Ancien prix (barré)</label>
+          <input type="text" id="old" inputmode="numeric" maxlength="12" autocomplete="off" placeholder="Ex: 1000" aria-label="Ancien prix barré">
+        </div>
+        <div>
+          <label for="end">Fin de l’offre</label>
+          <input type="text" id="end" inputmode="numeric" maxlength="10" autocomplete="off" placeholder="JJ/MM (ex: 31/12)" aria-label="Date de fin de l’offre">
+        </div>
+      </div>
+      <label for="promo">Bandeau promo</label>
+      <input type="text" id="promo" maxlength="40" autocomplete="off" placeholder="Ex: Offre limitée" aria-label="Bandeau promotionnel">
+      
+      <label for="qr">Lien du QR code 🔒 (verrouillé)</label>
+      <input type="url" id="qr" readonly value="https://www.instagram.com/luna.events.sfax/" title="Lien officiel du QR code verrouillé" aria-label="Lien du QR code officiel (verrouillé)">
+    </details>
+  </section>
+
+  <!-- 1 Aperçu Canvas (Ordre 1 sous 820px) -->
+  <section class="stage" id="colStage" aria-label="Aperçu de l’affiche">
+    <canvas id="c" width="1080" height="1350" role="img" aria-label="Aperçu en direct de l’affiche Luna Events"></canvas>
+    <div id="msg" role="status" aria-live="polite"></div>
+    <div class="btns" style="justify-content:center;margin:0 0 10px">
+      <button type="button" id="undo" aria-label="Annuler la dernière action">↶ Annuler</button>
+      <button type="button" id="redo" aria-label="Rétablir la dernière action">↷ Rétablir</button>
+      <button type="button" id="cmp" aria-label="Ouvrir le comparatif des packs">📊 Comparatif des packs</button>
+      <button type="button" id="back" aria-label="Retour à l’affiche individuelle" hidden>↩ Retour à l’affiche</button>
+    </div>
+    <button type="button" class="main" id="dl" aria-label="Télécharger l’affiche au format PNG haute définition">Télécharger l’affiche (PNG)</button>
+    <div class="btns" style="justify-content:center">
+      <button type="button" id="pdf" aria-label="Générer un catalogue PDF de mes affiches">📄 Catalogue (PDF)</button>
+      <button type="button" id="zip" aria-label="Télécharger les 3 formats dans une archive ZIP">3 formats (ZIP)</button>
+      <button type="button" id="shr" aria-label="Partager l’affiche">Partager</button>
+    </div>
+  </section>
+
+  <!-- 3 Liste des packs (Ordre 3 sous 820px) -->
+  <section class="col-packs" id="colPacks" aria-label="Gestion des packs">
+    <div class="panel">
+      <h2>Mes packs</h2>
+      <div id="list" role="region" aria-label="Liste de mes packs enregistrés"></div>
+      <div class="btns">
+        <button type="button" id="newPack" aria-label="Créer un nouveau pack vierge">➕ Nouveau pack</button>
+        <button type="button" id="save" aria-label="Enregistrer ce pack dans mes packs">Enregistrer ce pack</button>
+        <button type="button" id="dup" aria-label="Dupliquer le pack en cours">Dupliquer</button>
+        <button type="button" id="exp" aria-label="Exporter tous les packs au format JSON">Exporter (JSON)</button>
+        <button type="button" id="imp" aria-label="Importer des packs depuis un fichier JSON">Importer</button>
+      </div>
+      <input type="file" id="file" accept=".json,application/json" hidden aria-label="Sélectionner un fichier JSON à importer">
+    </div>
+  </section>
+</main>
+
+<!-- Modale Comparatif -->
+<div id="cmpM" class="ovl" hidden role="presentation">
+  <div class="dlg" role="dialog" aria-modal="true" aria-labelledby="cmpT">
+    <div class="dh">
+      <h2 id="cmpT">📊 Comparatif des packs</h2>
+      <button type="button" id="cmpX" aria-label="Fermer la fenêtre de comparatif">✕</button>
+    </div>
+    <div class="db" tabindex="0" role="region" aria-label="Options du comparatif">
+      <h3>1 · Packs à comparer <small>(de 2 à 6)</small></h3>
+      <div class="btns" style="margin:0 0 6px">
+        <button type="button" id="cmpAll">Tout sélectionner</button>
+        <button type="button" id="cmpNone">Tout effacer</button>
+      </div>
+      <div id="cmpList" role="group" aria-label="Sélection des packs à comparer"></div>
+
+      <h3>2 · Ordre des colonnes</h3>
+      <div id="cmpOrd" role="group" aria-label="Ordre des colonnes du comparatif"></div>
+
+      <h3>3 · Pack recommandé</h3>
+      <div id="cmpRec" role="radiogroup" aria-label="Sélection du pack recommandé"></div>
+
+      <h3>4 · Badge du pack recommandé</h3>
+      <canvas id="cmpPrev" width="560" height="170" role="img" aria-label="Aperçu du badge du pack recommandé"></canvas>
+      <span class="gl" id="gT">Texte</span>
+      <div class="chips" id="cmpBTx" role="group" aria-labelledby="gT"></div>
+      <label for="cm_badge">Texte personnalisé</label>
+      <input type="text" id="cm_badge" maxlength="28" autocomplete="off" placeholder="Ex: ⭐ Recommandé" aria-label="Texte personnalisé du badge">
+
+      <span class="gl" id="gC">Couleur</span>
+      <div class="chips" id="cmpBCol" role="group" aria-labelledby="gC"></div>
+
+      <span class="gl" id="gS">Style</span>
+      <div class="seg" id="cmpBSty" role="group" aria-labelledby="gS"></div>
+
+      <span class="gl" id="gP">Position</span>
+      <div class="seg" id="cmpBPos" role="group" aria-labelledby="gP"></div>
+      <div class="seg" id="cmpBAln" role="group" aria-label="Alignement du badge"></div>
+
+      <span class="gl" id="gZ">Taille</span>
+      <div class="seg" id="cmpBSz" role="group" aria-labelledby="gZ"></div>
+
+      <h3>5 · Textes du visuel</h3>
+      <label for="cm_title">Titre principal</label>
+      <input type="text" id="cm_title" maxlength="60" autocomplete="off" placeholder="Ex: Comparatif de nos offres" aria-label="Titre principal">
+      <label for="cm_sub">Sous-titre</label>
+      <input type="text" id="cm_sub" maxlength="80" autocomplete="off" placeholder="Ex: Choisissez la formule adaptée" aria-label="Sous-titre">
+      <label for="cm_mkt">Texte marketing</label>
+      <input type="text" id="cm_mkt" maxlength="100" autocomplete="off" placeholder="Ex: Des solutions adaptées à tous les budgets." aria-label="Texte marketing">
+
+      <h3>6 · Libellés</h3>
+      <div class="row">
+        <div>
+          <label for="cm_yes">Élément inclus</label>
+          <input type="text" id="cm_yes" maxlength="30" autocomplete="off" placeholder="Ex: Inclus" aria-label="Libellé pour élément inclus">
+        </div>
+        <div>
+          <label for="cm_no">Élément non inclus</label>
+          <input type="text" id="cm_no" maxlength="30" autocomplete="off" placeholder="Ex: Non inclus" aria-label="Libellé pour élément non inclus">
+        </div>
+      </div>
+
+      <h3>7 · Appel à l’action</h3>
+      <label for="cm_cta">Appel à l’action</label>
+      <input type="text" id="cm_cta" maxlength="60" autocomplete="off" placeholder="Ex: Réservez votre date dès maintenant" aria-label="Appel à l’action">
+      <p class="empty">Les téléphones et l’Instagram (verrouillé) sont repris automatiquement.</p>
+    </div>
+    <div class="df">
+      <div>
+        <div id="cmpCount"></div>
+        <div id="cmpHint"></div>
+      </div>
+      <button type="button" class="main" id="cmpOk">Générer le comparatif</button>
+    </div>
+  </div>
+</div>
+
+<!-- Modale Export PDF -->
+<div id="pdfM" class="ovl" hidden role="presentation">
+  <div class="dlg" role="dialog" aria-modal="true" aria-labelledby="pdfT">
+    <div class="dh">
+      <h2 id="pdfT">📄 Export PDF</h2>
+      <button type="button" id="pdfX" aria-label="Fermer la fenêtre d'export PDF">✕</button>
+    </div>
+    <div class="db" tabindex="0" role="region" aria-label="Sélection des affiches pour le PDF">
+      <h3>Sélectionnez les affiches à inclure</h3>
+      <div class="btns" style="margin:0 0 6px">
+        <button type="button" id="pdfAll">Tout sélectionner</button>
+        <button type="button" id="pdfNone">Tout désélectionner</button>
+      </div>
+      <div id="pdfList" role="group" aria-label="Liste des affiches"></div>
+    </div>
+    <div class="df">
+      <div>
+        <div id="pdfCount"></div>
+        <div id="pdfHint"></div>
+      </div>
+      <button type="button" class="main" id="pdfOk" disabled>Générer le PDF</button>
+    </div>
+  </div>
+</div>
+
+<script src="assets/logo.js"></script>
+<script src="assets/jszip.min.js"></script>
+<script src="assets/qrcode.min.js"></script>
+<script src="assets/jspdf.umd.min.js"></script>
+<script>
+const LOGO=window.LUNA_LOGO||"assets/logo-luna.png";
+const $=id=>document.getElementById(id);
+const F=["name","ar","svc","plabel","price","unit","tag","phones","handle","fmt","theme","font","frame","rtl","wm","old","end","promo","qr"];
+const PRESETS=[
+  {name:"Pack Essentiel",ar:"باقة أساسية",svc:"Son professionnel\nÉclairage de salle",plabel:"À partir de",price:"500",unit:"DT",tag:"Créateurs de moments magiques",phones:"26 48 49 49 | 55 44 65 12",handle:"instagram.com/luna.events.sfax",fmt:"1350",theme:"or"},
+  {name:"Pack Prestige",ar:"باقة بريستيج",svc:"Son professionnel\nÉclairage de salle\nPhoto de l’événement",plabel:"À partir de",price:"800",unit:"DT",tag:"Créateurs de moments magiques",phones:"26 48 49 49 | 55 44 65 12",handle:"instagram.com/luna.events.sfax",fmt:"1350",theme:"nuit"},
+  {name:"Pack Royal",ar:"الباقة الملكية",svc:"Son professionnel\nÉclairage de salle\nPhoto de l’événement\nServeurs\nDécoration",plabel:"À partir de",price:"1500",unit:"DT",tag:"Créateurs de moments magiques",phones:"26 48 49 49 | 55 44 65 12",handle:"instagram.com/luna.events.sfax",fmt:"1350",theme:"blanc"}
+];
+const TH={
+  or:{bg:["#050505","#17120a","#050505"],glow:"rgba(217,180,91,.22)",gold:["#8a6a1f","#f6e3a1","#c9a24a","#f6e3a1","#8a6a1f"],tx:"#f3e9d2",sub:"#cdb98a",dark:true},
+  rose:{bg:["#2a0f1c","#4a1a33","#1a0a12"],glow:"rgba(255,150,190,.3)",gold:["#9a5a4a","#ffd9c9","#e0a08a","#ffd9c9","#9a5a4a"],tx:"#fff0f4",sub:"#f0c4d2",dark:true},
+  emeraude:{bg:["#04140e","#0b3a28","#04140e"],glow:"rgba(60,200,140,.28)",gold:["#8a6a1f","#f6e3a1","#c9a24a","#f6e3a1","#8a6a1f"],tx:"#e9fff3",sub:"#a8dcc0",dark:true},
+  minimal:{bg:["#ffffff","#f4f4f2","#ffffff"],glow:"rgba(0,0,0,.06)",gold:["#222","#555","#222","#555","#222"],tx:"#111",sub:"#555",dark:false},
+  nuit:{bg:["#0a0620","#1e0f48","#06051a"],glow:"rgba(120,80,255,.35)",gold:["#8a6a1f","#f6e3a1","#c9a24a","#f6e3a1","#8a6a1f"],tx:"#f1ecff",sub:"#c9bdf0",dark:true},
+  blanc:{bg:["#fbf7ee","#f0e3c0","#fbf7ee"],glow:"rgba(201,162,74,.25)",gold:["#6e4f10","#b98d2c","#8f6a1c","#c9a24a","#6e4f10"],tx:"#2a2110",sub:"#6b5527",dark:false}
+};
+const cv=$("c"),ctx=cv.getContext("2d"),logo=new Image();
+logo.onload=()=>scheduleDraw();
+logo.src=LOGO;
+
+// Contraintes officielles Luna Events : Instagram & QR Code forcés et verrouillés
+const IG_URL="https://www.instagram.com/luna.events.sfax/",IG_TXT="instagram.com/luna.events.sfax";
+let packs=[],cmpActive=false,CM=null;
+$("handle").value=IG_TXT;$("qr").value=IG_URL;
+["handle","qr"].forEach(k=>{$(k).readOnly=true;$(k).title="Champ officiel verrouillé";});
+
+const el=(t,c,x)=>{const e=document.createElement(t);if(c)e.className=c;if(x)e.textContent=x;return e;};
+function fz(t,fam,w,max,min,wt){let s=max;for(;s>min;s--){ctx.font=`${wt} ${s}px ${fam}`;if(ctx.measureText(t).width<=w)return s;}ctx.font=`${wt} ${min}px ${fam}`;return min;}
+function ell(t,w){if(ctx.measureText(t).width<=w)return t;while(t.length>1&&ctx.measureText(t+"…").width>w)t=t.slice(0,-1);return t+"…";}
+function rr(x,y,w,h,r){ctx.beginPath();if(ctx.roundRect)ctx.roundRect(x,y,w,h,r);else ctx.rect(x,y,w,h);}
+function drawQR(W,H){if(!window.qrcode)return;try{const q=qrcode(0,"M");q.addData(IG_URL);q.make();const n=q.getModuleCount(),c=Math.max(2,Math.floor(150/n)),sz=c*n+16,x0=W-62-sz,y0=H-62-sz;ctx.fillStyle="#fff";ctx.fillRect(x0,y0,sz,sz);ctx.fillStyle="#000";for(let r=0;r<n;r++)for(let u=0;u<n;u++)if(q.isDark(r,u))ctx.fillRect(x0+8+u*c,y0+8+r*c,c,c);}catch(e){}}
+function say(t){$("msg").textContent=t;}
+function get(){const o={};F.forEach(k=>o[k]=$(k).value);o.handle=IG_TXT;o.qr=IG_URL;return o;}
+function set(o){cmpActive=false;F.forEach(k=>{if(k!=="handle"&&k!=="qr"&&o[k]!==undefined)$(k).value=o[k];});scheduleDraw();snap();render();}
+function fit(t,fam,w,max,wt){let s=max;for(;s>24;s-=2){ctx.font=`${wt} ${s}px ${fam}`;if(ctx.measureText(t).width<=w)break;}return s;}
+function sp(n){if("letterSpacing"in ctx)ctx.letterSpacing=n+"px";}
+
+/* Optimisation Performance : Regroupement et requestAnimationFrame() */
+let rafDrawId=null;
+function scheduleDraw(){
+  if(rafDrawId)return;
+  rafDrawId=requestAnimationFrame(()=>{rafDrawId=null;draw();});
+}
+
+function draw(o){
+  if(rafDrawId){cancelAnimationFrame(rafDrawId);rafDrawId=null;}
+  const d=(o&&o.fmt)?o:get();if(!(o&&o.fmt)&&cmpActive)d._cmp=1;
+  $("back").hidden=!d._cmp;
+  const W=1080,H=+d.fmt,T=TH[d.theme]||TH.or,k=Math.max(H/1350,.8),story=H>1500;
+  cv.width=W;cv.height=H;
+  ctx.textAlign="center";ctx.textBaseline="alphabetic";ctx.direction="ltr";
+  
+  let g=ctx.createLinearGradient(0,0,0,H);
+  g.addColorStop(0,T.bg[0]);g.addColorStop(.5,T.bg[1]);g.addColorStop(1,T.bg[2]);
+  ctx.fillStyle=g;ctx.fillRect(0,0,W,H);
+  
+  g=ctx.createRadialGradient(W/2,H*.12,0,W/2,H*.12,W*.75);
+  g.addColorStop(0,T.glow);g.addColorStop(1,"transparent");
+  ctx.fillStyle=g;ctx.fillRect(0,0,W,H);
+  
+  const gold=ctx.createLinearGradient(0,0,W,0);
+  T.gold.forEach((c,i)=>gold.addColorStop(i/4,c));
+  
+  let s=7;const rnd=()=>(s=(s*16807)%2147483647)/2147483647;
+  ctx.fillStyle=T.dark?"#f6e3a1":"#b98d2c";
+  for(let i=0;i<70;i++){ctx.globalAlpha=.15+rnd()*.5;ctx.beginPath();ctx.arc(rnd()*W,rnd()*H,rnd()*2.2+.4,0,7);ctx.fill();}
+  ctx.globalAlpha=1;ctx.strokeStyle=gold;ctx.lineWidth=3;
+  
+  if(d.frame==="coins"){
+    [[34,34,1,1],[W-34,34,-1,1],[34,H-34,1,-1],[W-34,H-34,-1,-1]].forEach(([x,v,a,b])=>{
+      ctx.beginPath();ctx.moveTo(x+a*120,v);ctx.lineTo(x,v);ctx.lineTo(x,v+b*120);ctx.stroke();
+      ctx.beginPath();ctx.moveTo(x+a*22,v+b*22);ctx.lineTo(x+a*60,v+b*22);ctx.moveTo(x+a*22,v+b*22);ctx.lineTo(x+a*22,v+b*60);ctx.stroke();
+    });
+  }else if(d.frame!=="none"){
+    ctx.strokeRect(34,34,W-68,H-68);ctx.globalAlpha=.55;ctx.lineWidth=1;ctx.strokeRect(50,50,W-100,H-100);ctx.globalAlpha=1;
+  }
+  
+  const sq=H<1200,lh=d._cmp?(story?170:sq?70:110):story?300:sq?150:230,lw=lh*(logo.naturalWidth||1)/(logo.naturalHeight||1),ly=d._cmp?(sq?64:76):sq?72:(T.dark?84:100);
+  if(logo.naturalWidth){
+    if(d.theme!=="or"){
+      ctx.fillStyle=d.theme==="nuit"?"#07051a":"#050505";
+      ctx.beginPath();ctx.arc(W/2,ly+lh/2,lh*.56,0,7);ctx.fill();
+      ctx.strokeStyle=gold;ctx.lineWidth=2;ctx.stroke();
+    }
+    ctx.globalCompositeOperation="screen";
+    ctx.drawImage(logo,W/2-lw/2,ly,lw,lh);
+    ctx.globalCompositeOperation="source-over";
+  }
+  
+  let y=ly+lh+(d.theme==="or"?46:68)*(sq?.8:1);
+  ctx.fillStyle=T.sub;ctx.font="500 26px Cinzel,serif";sp(10);ctx.fillText("LUNA EVENTS",W/2+5,y);sp(0);
+  ctx.fillStyle=gold;
+  if(d._cmp){cmp();return;}
+  
+  const A=d.rtl==="1"&&!!d.ar,TF=A?"Amiri":(d.font||"Cinzel"),nm=A?d.ar:d.name.toUpperCase(),ns=fit(nm,`"${TF}",serif`,W-180,100,700);
+  y+=ns*.95+22*k;ctx.font=`700 ${ns}px "${TF}",serif`;if(A)ctx.direction="rtl";ctx.fillText(nm,W/2,y);ctx.direction="ltr";
+  
+  const sb=A?d.name:d.ar;
+  if(sb){
+    y+=70*k;ctx.fillStyle=T.sub;
+    if(A)ctx.font=`700 ${fit(sb,"Cinzel,serif",W-200,40,700)}px Cinzel,serif`;
+    else{ctx.direction="rtl";ctx.font=`700 ${fit(sb,"Amiri,serif",W-200,46,700)}px Amiri,serif`;}
+    ctx.fillText(sb,W/2,y);ctx.direction="ltr";
+  }
+  
+  y+=38*k;ctx.strokeStyle=gold;ctx.lineWidth=2;ctx.beginPath();ctx.moveTo(W/2-260,y);ctx.lineTo(W/2-22,y);ctx.moveTo(W/2+22,y);ctx.lineTo(W/2+260,y);ctx.stroke();
+  ctx.fillStyle=gold;ctx.beginPath();ctx.moveTo(W/2,y-10);ctx.lineTo(W/2+10,y);ctx.lineTo(W/2,y+10);ctx.lineTo(W/2-10,y);ctx.fill();
+  
+  const mb=story?200:84,ps=sq?.78:1,ftop=H-mb-118,pb=ftop-250*ps;
+  const L=d.svc.split(/\r?\n/).map(x=>x.trim()).filter(Boolean),top=y+30*k,step=Math.min(86*k,(pb-top-10)/Math.max(L.length,1));
+  const fs=Math.min(story?54:44,step*.62);ctx.font=`700 ${fs}px "Cormorant Garamond",serif`;
+  L.forEach((t,i)=>{
+    const by=top+step*(i+.72),w=ctx.measureText(t).width;
+    ctx.fillStyle=T.tx;ctx.fillText(t,W/2,by);ctx.fillStyle=gold;
+    const dx=W/2-w/2-30,dy=by-fs*.3;
+    ctx.beginPath();ctx.moveTo(dx,dy-8);ctx.lineTo(dx+8,dy);ctx.lineTo(dx,dy+8);ctx.lineTo(dx-8,dy);ctx.fill();
+  });
+  
+  if(d.price){
+    ctx.save();ctx.translate(W/2,pb);ctx.scale(ps,ps);ctx.translate(-W/2,-pb);
+    ctx.fillStyle=T.sub;ctx.font="italic 500 32px 'Cormorant Garamond',serif";ctx.fillText(d.plabel,W/2,pb+30);
+    if(d.old){
+      const o=d.old+" "+d.unit;ctx.font="700 38px Cinzel,serif";const ow=ctx.measureText(o).width;
+      ctx.globalAlpha=.8;ctx.fillText(o,W/2,pb-4);ctx.fillRect(W/2-ow/2,pb-18,ow,3);ctx.globalAlpha=1;
+    }
+    ctx.font="700 130px Cinzel,serif";const w1=ctx.measureText(d.price).width;
+    ctx.font="700 50px Cinzel,serif";const w2=ctx.measureText(" "+d.unit).width,x0=W/2-(w1+w2)/2;
+    ctx.textAlign="left";ctx.fillStyle=gold;ctx.font="700 130px Cinzel,serif";
+    ctx.fillText(d.price,x0,pb+160);ctx.font="700 50px Cinzel,serif";ctx.fillText(" "+d.unit,x0+w1,pb+160);ctx.textAlign="center";ctx.restore();
+  }
+  
+  footer(ftop);
+
+  function footer(ftop){
+    if(d.promo){
+      const t=d.promo+(d.end?" · jusqu’au "+d.end:"");ctx.font="700 22px Cinzel,serif";
+      const w=ctx.measureText(t).width+56;ctx.fillStyle=gold;
+      ctx.beginPath();if(ctx.roundRect)ctx.roundRect(W/2-w/2,ftop-62,w,38,19);else ctx.rect(W/2-w/2,ftop-62,w,38);
+      ctx.fill();ctx.fillStyle=T.dark?"#17110a":"#fff";ctx.fillText(t,W/2,ftop-36);
+    }
+    ctx.fillStyle=T.sub;ctx.font="italic 500 30px 'Cormorant Garamond',serif";ctx.fillText(d.tag,W/2,ftop+10);
+    ctx.fillStyle=T.tx;ctx.font="700 38px Cinzel,serif";sp(2);ctx.fillText(d.phones,W/2,ftop+66);sp(0);
+    ctx.fillStyle=gold;ctx.font="700 28px Cinzel,serif";ctx.fillText(IG_TXT,W/2,ftop+110);
+    if(d.wm==="1"){
+      ctx.save();ctx.globalAlpha=.07;ctx.translate(W/2,H/2);ctx.rotate(-.5);
+      ctx.fillStyle=T.tx;ctx.font="700 130px Cinzel,serif";ctx.fillText("LUNA EVENTS",0,0);ctx.restore();
+    }
+    drawQR(W,H);
+  }
+
+  function cmp(){
+    const C=CM,Ls=C.order.map(n=>packs.find(p=>p.name===n)).filter(Boolean),n=Ls.length,
+    hd=sq?{tg:40,nm:74,pl:98,pr:142,h:156,bh:34}:{tg:48,nm:88,pl:116,pr:172,h:192,bh:40},
+    tw=W-140,lw=n<=3?330:n<=4?290:250,cw=(tw-lw)/n,x0=70,fy=H-70-(sq?150:235),cb=fy-(sq?22:26);
+    const ri=Ls.findIndex(p=>p.name===C.rec),bOn=ri>=0&&!!C.badge,btx=bOn?C.badge.toUpperCase():"",
+    bm=bOn?bFit(ctx,btx,C,cw,sq,W):{bh:0,bf:0,bw:0},bBot=bOn&&C.bpos==="bottom",bAb=bOn&&C.bpos==="above",
+    bBy=bBot?Math.min(cb-bm.bh/2,fy-8-bm.bh):0,bEx=bOn&&!bBot?Math.max(0,(bAb?22+bm.bh:16+bm.bh/2)-(sq?46:60)):0;
+    
+    let yy=y;ctx.textAlign="center";
+    ctx.fillStyle=gold;const ts=fz(C.title,"Cinzel,serif",W-160,sq?44:58,24,700);yy+=ts*.9+(sq?6:12);ctx.fillText(C.title,W/2,yy);
+    ctx.fillStyle=T.sub;if(C.sub){fz(C.sub,"'Cormorant Garamond',serif",W-200,sq?28:34,16,"italic 500");yy+=sq?32:44;ctx.fillText(C.sub,W/2,yy);}
+    if(C.mkt){fz(C.mkt,"'Cormorant Garamond',serif",W-200,sq?22:27,15,"500");yy+=sq?28:36;ctx.fillText(C.mkt,W/2,yy);}
+    yy+=sq?18:28;ctx.strokeStyle=gold;ctx.lineWidth=2;ctx.beginPath();ctx.moveTo(W/2-200,yy);ctx.lineTo(W/2-18,yy);ctx.moveTo(W/2+18,yy);ctx.lineTo(W/2+200,yy);ctx.stroke();
+    ctx.fillStyle=gold;ctx.beginPath();ctx.moveTo(W/2,yy-8);ctx.lineTo(W/2+8,yy);ctx.lineTo(W/2,yy+8);ctx.lineTo(W/2-8,yy);ctx.fill();
+    
+    const ct=yy+(sq?46:60)+bEx,nz=s=>s.toLowerCase().normalize("NFD").replace(/[̀-ͯ]/g,"").replace(/\s+/g," ").trim(),
+    sets=Ls.map(p=>new Set(p.svc.split(/\r?\n/).map(nz).filter(Boolean))),rows=[],seen={};
+    Ls.forEach(p=>p.svc.split(/\r?\n/).map(x=>x.trim()).filter(Boolean).forEach(t=>{const k2=nz(t);if(!seen[k2]){seen[k2]={t,k:k2,c:0};rows.push(seen[k2]);}}));
+    rows.forEach(r=>r.c=sets.filter(s=>s.has(r.k)).length);rows.sort((a,b)=>b.c-a.c);
+    
+    const rt=ct+hd.h,rb=bBot?Math.min(cb-12,bBy-8):cb-12,av=rb-rt;let rh=Math.min(sq?50:64,av/Math.max(rows.length,1)),shown=rows.length,more=0;
+    if(rh<30){shown=Math.max(1,Math.floor(av/30)-1);more=rows.length-shown;rh=av/(shown+1);}
+    const vis=rows.slice(0,shown);
+    vis.forEach((r,i)=>{if(i%2===0){ctx.fillStyle=T.dark?"rgba(255,255,255,.045)":"rgba(0,0,0,.045)";ctx.fillRect(x0,rt+i*rh,tw,rh);}});
+    
+    Ls.forEach((p,i)=>{
+      const rec=p.name===C.rec,cx=x0+lw+cw*(i+.5),px=x0+lw+cw*i+4,pw=cw-8;
+      ctx.save();rr(px,ct,pw,cb-ct,18);
+      if(rec){
+        ctx.shadowColor="rgba(217,180,91,.55)";ctx.shadowBlur=32;
+        ctx.fillStyle=T.dark?"rgba(246,227,161,.11)":"rgba(185,141,44,.13)";
+        ctx.fill();ctx.shadowBlur=0;ctx.strokeStyle=gold;ctx.lineWidth=4;
+      }else{
+        ctx.fillStyle=T.dark?"rgba(255,255,255,.025)":"rgba(0,0,0,.025)";
+        ctx.fill();ctx.globalAlpha=.5;ctx.strokeStyle=gold;ctx.lineWidth=1.5;
+      }
+      ctx.stroke();ctx.restore();
+      
+      const hasP=/^pack\s+/i.test(p.name),nm=p.name.replace(/^pack\s+/i,"").toUpperCase();
+      if(hasP){ctx.fillStyle=T.sub;ctx.font="700 15px Cinzel,serif";sp(4);ctx.fillText("PACK",cx+2,ct+hd.tg);sp(0);}
+      ctx.fillStyle=gold;fz(nm,"Cinzel,serif",pw-18,n<=3?44:n<=4?36:30,12,700);ctx.fillText(ell(nm,pw-14),cx,ct+hd.nm);
+      if(p.plabel&&p.price&&cw>=120){ctx.fillStyle=T.sub;fz(p.plabel,"'Cormorant Garamond',serif",pw-14,20,13,"italic 500");ctx.fillText(p.plabel,cx,ct+hd.pl);}
+      if(p.price){
+        const un=p.unit||"",wd=z=>{ctx.font=`700 ${z}px Cinzel,serif`;const a=ctx.measureText(p.price).width;ctx.font=`700 ${z*.4}px Cinzel,serif`;return[a,ctx.measureText(" "+un).width];};
+        let ps=n<=3?60:n<=4?50:40,m=wd(ps);while(ps>14&&m[0]+m[1]>pw-14){ps-=2;m=wd(ps);}
+        const xs=cx-(m[0]+m[1])/2;ctx.textAlign="left";ctx.fillStyle=gold;ctx.font=`700 ${ps}px Cinzel,serif`;
+        ctx.fillText(p.price,xs,ct+hd.pr);ctx.font=`700 ${ps*.4}px Cinzel,serif`;ctx.fillText(" "+un,xs+m[0],ct+hd.pr);ctx.textAlign="center";
+      }
+      ctx.save();ctx.globalAlpha=.4;ctx.strokeStyle=gold;ctx.lineWidth=1;ctx.beginPath();ctx.moveTo(px+16,rt-10);ctx.lineTo(px+pw-16,rt-10);ctx.stroke();ctx.restore();
+      
+      vis.forEach((r,j)=>{
+        const inc=sets[i].has(r.k),lab=inc?C.yes:C.no,cy=rt+j*rh+rh/2,ic=Math.min(12,rh*.24);
+        let tw1=0,f=0;if(lab){f=fz(lab,"'Cormorant Garamond',serif",pw-10,Math.min(22,rh*.44),12,"700");tw1=ctx.measureText(lab).width;}
+        const useI=!lab||tw1+ic*2+10<=pw-8,tot=(useI?ic*2:0)+(lab?tw1+(useI?8:0):0),sx=cx-tot/2;
+        if(useI){
+          ctx.save();if(!inc)ctx.globalAlpha=.5;const ix=sx+ic;
+          if(inc){
+            ctx.fillStyle=gold;ctx.beginPath();ctx.arc(ix,cy,ic,0,7);ctx.fill();
+            ctx.strokeStyle="#17110a";ctx.lineWidth=2.4;ctx.beginPath();ctx.moveTo(ix-ic*.45,cy);ctx.lineTo(ix-ic*.1,cy+ic*.4);ctx.lineTo(ix+ic*.5,cy-ic*.35);ctx.stroke();
+          }else{
+            ctx.strokeStyle=T.sub;ctx.lineWidth=1.6;ctx.beginPath();ctx.arc(ix,cy,ic,0,7);ctx.moveTo(ix-ic*.4,cy-ic*.4);ctx.lineTo(ix+ic*.4,cy+ic*.4);ctx.moveTo(ix+ic*.4,cy-ic*.4);ctx.lineTo(ix-ic*.4,cy+ic*.4);ctx.stroke();
+          }
+          ctx.restore();
+        }
+        if(lab){
+          ctx.save();if(!inc)ctx.globalAlpha=.55;ctx.fillStyle=inc?T.tx:T.sub;ctx.font=`700 ${f}px 'Cormorant Garamond',serif`;
+          ctx.textAlign=useI?"left":"center";ctx.fillText(useI?lab:ell(lab,pw-8),useI?sx+ic*2+8:cx,cy+f*.3);ctx.restore();
+        }
+      });
+    });
+    
+    vis.forEach((r,j)=>{
+      ctx.textAlign="left";ctx.fillStyle=T.tx;const f=fz(r.t,"'Cormorant Garamond',serif",lw-22,Math.min(30,rh*.58),14,"700");
+      ctx.fillText(ell(r.t,lw-22),x0+14,rt+j*rh+rh/2+f*.32);
+    });
+    if(more>0){
+      ctx.textAlign="left";ctx.fillStyle=T.sub;ctx.font="italic 500 20px 'Cormorant Garamond',serif";
+      ctx.fillText(`+ ${more} autre${more>1?"s":""} prestation${more>1?"s":""}`,x0+14,rt+shown*rh+rh/2+6);
+    }
+    ctx.textAlign="center";
+    if(bOn){
+      const px=x0+lw+cw*ri+4,pw=cw-8,by=bBot?bBy:bAb?ct-6-bm.bh:ct-bm.bh/2;
+      let bx=C.balign==="left"?px:C.balign==="right"?px+pw-bm.bw:x0+lw+cw*(ri+.5)-bm.bw/2;
+      bx=Math.max(60,Math.min(W-60-bm.bw,bx));
+      badgeDraw(ctx,bx,by,bm.bw,bm.bh,bm.bf,btx,C,T);
+      ctx.textAlign="center";
+    }
+    
+    // Pied : téléphones + CTA + Instagram
+    const cx=W/2,ph=d.phones.split(/[|\/•·]/).map(s=>s.trim()).filter(Boolean).map(s=>"📞 "+s),
+    sl=(yv)=>{ctx.save();ctx.globalAlpha=.8;ctx.strokeStyle=gold;ctx.lineWidth=2;ctx.beginPath();ctx.moveTo(cx-290,yv);ctx.lineTo(cx+290,yv);ctx.stroke();ctx.restore();};
+    sl(fy);ctx.fillStyle=T.tx;let py=fy+(sq?44:52);
+    if(sq){const t=ph.join("    ");fz(t,"Cinzel,serif",560,30,14,700);ctx.fillText(t,cx,py);py+=46;}
+    else ph.forEach(t=>{fz(t,"Cinzel,serif",560,36,16,700);ctx.fillText(t,cx,py);py+=46;});
+    if(C.cta){const t="✨ "+C.cta;ctx.fillStyle=gold;fz(t,"'Cormorant Garamond',serif",560,sq?34:40,16,"italic 700");ctx.fillText(t,cx,py+(sq?0:6));}
+    const ey=fy+(sq?108:178);sl(ey);ctx.fillStyle=gold;fz(IG_TXT,"Cinzel,serif",560,sq?22:26,14,700);ctx.fillText(IG_TXT,cx,ey+(sq?32:40));
+    if(d.wm==="1"){ctx.save();ctx.globalAlpha=.07;ctx.translate(W/2,H/2);ctx.rotate(-.5);ctx.fillStyle=T.tx;ctx.font="700 130px Cinzel,serif";ctx.fillText("LUNA EVENTS",0,0);ctx.restore();}
+    drawQR(W,H);
+    if(more>0)say(`${more} prestation${more>1?"s":""} non affichée${more>1?"s":""} : choisissez le format Story ou moins de packs.`);
+  }
+}
+
+const STY=["fmt","theme","frame","wm"];
+F.forEach(k=>$(k).addEventListener("input",()=>{
+  if(!STY.includes(k))cmpActive=false;
+  scheduleDraw();
+},{passive:true}));
+
+if(document.fonts)Promise.all(["700 60px Cinzel","500 26px 'Cormorant Garamond'","italic 500 30px 'Cormorant Garamond'","700 40px 'Cormorant Garamond'","700 40px Amiri"].map(f=>document.fonts.load(f))).then(()=>scheduleDraw()).catch(()=>{});
+
+/* Optimisation Performance : Resize débauncé */
+function debounce(fn,ms=120){
+  let t;
+  return function(...args){
+    clearTimeout(t);
+    t=setTimeout(()=>fn.apply(this,args),ms);
+  };
+}
+window.addEventListener("resize",debounce(()=>{
+  scheduleDraw();
+  if(!$("cmpM").hidden)scheduleCmpPrev();
+},120),{passive:true});
+
+/* Téléchargement standard (Blob + <a download>) — aucune dépendance externe */
+function dlFile(name,data,type){
+  try{
+    const blob=data instanceof Blob?data:new Blob([data],{type:type||"application/octet-stream"});
+    if(!blob.size)throw new Error("fichier vide");
+    const url=URL.createObjectURL(blob),a=document.createElement("a");
+    a.href=url;a.download=name;a.rel="noopener";a.style.display="none";
+    document.body.appendChild(a);a.click();
+    setTimeout(()=>{a.remove();URL.revokeObjectURL(url);},2000);
+    say("Fichier prêt : "+name);return true;
+  }catch(e){say("Le téléchargement a échoué : "+((e&&e.message)||"erreur inconnue")+".");return false;}
+}
+function canvasToBlob(type){
+  return new Promise((res,rej)=>{
+    try{cv.toBlob(b=>b?res(b):rej(new Error("export du canvas impossible")),type||"image/png");}
+    catch(e){rej(e);}
+  });
+}
+
+/* Validation des packs (import JSON, localStorage, brouillon) */
+const IMPORT_MAX_BYTES=1048576,IMPORT_MAX_PACKS=200,FIELD_MAX=2000;
+const TXT_KEYS=["name","ar","svc","plabel","price","unit","tag","phones","old","end","promo"];
+const ENUMS={fmt:["1350","1080","1920"],theme:Object.keys(TH),font:["Cinzel","Cormorant Garamond","Amiri"],frame:["double","coins","none"],rtl:["0","1"],wm:["0","1"]};
+function validPack(p,needName){
+  if(!p||typeof p!=="object"||Array.isArray(p))return null;
+  const o={};
+  for(const k of TXT_KEYS){
+    let v=p[k];if(v===undefined||v===null)continue;
+    if(typeof v==="number"&&isFinite(v))v=String(v);
+    if(typeof v!=="string")return null;
+    o[k]=v.slice(0,FIELD_MAX);
+  }
+  if(needName){if(typeof o.name!=="string"||!o.name.trim())return null;o.name=o.name.trim();}
+  for(const k in ENUMS){
+    if(p[k]===undefined||p[k]===null)continue;
+    const v=String(p[k]);if(!ENUMS[k].includes(v))return null;o[k]=v;
+  }
+  o.handle=IG_TXT;o.qr=IG_URL;
+  return o;
+}
+function parsePacksJSON(text){
+  let data;
+  try{data=JSON.parse(String(text).replace(/^\uFEFF/,""));}
+  catch(e){return{error:"Fichier illisible : ce n’est pas un JSON valide."};}
+  if(!Array.isArray(data))return{error:"Format invalide : le fichier doit contenir une liste de packs."};
+  if(!data.length)return{error:"Le fichier ne contient aucun pack."};
+  if(data.length>IMPORT_MAX_PACKS)return{error:"Fichier trop volumineux : "+IMPORT_MAX_PACKS+" packs maximum."};
+  const ok=[];let bad=0;
+  data.forEach(p=>{const v=validPack(p,true);if(v)ok.push(v);else bad++;});
+  return{ok,bad};
+}
+const slug=s=>s.toLowerCase().normalize("NFD").replace(/[̀-ͯ]/g,"").replace(/[^a-z0-9]+/g,"-").replace(/^-|-$/g,"")||"pack";
+
+$("dl").onclick=async()=>{
+  try{
+    const b=await canvasToBlob("image/png");
+    dlFile(`luna-${cmpActive?"comparatif":slug($("name").value)}-${cv.width}x${cv.height}.png`,b);
+  }catch(e){say("Impossible de créer l’image.");}
+};
+
+/* Sauvegarde différée optimisée */
+let persistTimer=null;
+function persist(immediate=false){
+  if(immediate){
+    clearTimeout(persistTimer);
+    try{localStorage.setItem("luna.packs",JSON.stringify(packs));return true;}catch(e){return false;}
+  }
+  clearTimeout(persistTimer);
+  persistTimer=setTimeout(()=>{
+    try{localStorage.setItem("luna.packs",JSON.stringify(packs));}catch(e){}
+  },250);
+  return true;
+}
+
+function render(){
+  const l=$("list");l.textContent="";
+  if(!packs.length){const p=document.createElement("div");p.className="empty";p.textContent="Aucun pack enregistré pour l’instant.";l.append(p);return;}
+  const currentName=$("name")?$("name").value.trim():"";
+  packs.forEach((p,i)=>{
+    const isCur=p.name===currentName;
+    const r=document.createElement("div");r.className="pk"+(isCur?" pk-active":"");
+    const n=document.createElement("span");
+    n.textContent=p.name;
+    if(isCur){
+      const badge=document.createElement("small");
+      badge.className="pk-badge";
+      badge.textContent="● En cours";
+      n.append(badge);
+    }
+    const a=document.createElement("button");a.type="button";a.textContent="Ouvrir";a.setAttribute("aria-label","Ouvrir le pack "+p.name);
+    if(isCur){a.disabled=true;a.title="Pack actuellement chargé dans l'éditeur";}
+    a.onclick=()=>{set(p);say("Pack chargé : "+p.name);};
+    const b=document.createElement("button");b.type="button";b.textContent="Supprimer";b.setAttribute("aria-label","Supprimer le pack "+p.name);
+    b.onclick=()=>{
+      if(confirm("Supprimer le pack \""+p.name+"\" ?")){
+        packs.splice(i,1);persist(true);render();say("Pack supprimé.");
+      }
+    };
+    r.append(n,a,b);l.append(r);
+  });
+}
+
+$("save").onclick=()=>{
+  const d=get();if(!d.name.trim()){say("Donnez un nom au pack avant de l’enregistrer.");return;}
+  const i=packs.findIndex(p=>p.name===d.name);if(i>=0)packs[i]=d;else packs.push(d);
+  persist(true);render();say("Pack enregistré.");
+};
+$("exp").onclick=()=>dlFile("luna-packs.json",JSON.stringify(packs,null,2),"application/json;charset=utf-8");
+$("imp").onclick=()=>$("file").click();
+$("file").onchange=async e=>{
+  const inp=e.target,f=inp.files&&inp.files[0];if(!f)return;
+  try{
+    if(f.size>IMPORT_MAX_BYTES){say("Fichier trop volumineux (1 Mo maximum).");return;}
+    let text;
+    try{text=await f.text();}catch(x){say("Lecture du fichier impossible.");return;}
+    const r=parsePacksJSON(text);
+    if(r.error){say(r.error);return;}
+    if(!r.ok.length){say("Aucun pack valide dans ce fichier ("+r.bad+" ignoré"+(r.bad>1?"s":"")+").");return;}
+    r.ok.forEach(p=>{const i=packs.findIndex(q=>q.name===p.name);if(i>=0)packs[i]=p;else packs.push(p);});
+    const saved=persist(true);render();
+    say(r.ok.length+" pack"+(r.ok.length>1?"s":"")+" importé"+(r.ok.length>1?"s":"")+
+      (r.bad?" · "+r.bad+" ignoré"+(r.bad>1?"s":"")+" (invalide"+(r.bad>1?"s":"")+")":"")+
+      (saved?".":" · attention : sauvegarde locale impossible (stockage plein ou bloqué)."));
+  }catch(x){say("Import impossible : erreur inattendue.");}
+  finally{inp.value="";}
+};
+
+/* Undo / Redo & Brouillon */
+let hist=[],hi=-1,skip=false;
+function snap(){
+  if(skip)return;
+  const s=JSON.stringify(get());
+  if(hist[hi]===s)return;
+  hist=hist.slice(0,hi+1);hist.push(s);
+  if(hist.length>60)hist.shift();
+  hi=hist.length-1;
+  try{localStorage.setItem("luna.draft",s);}catch(e){}
+}
+function go(n){
+  const i=hi+n;if(i<0||i>=hist.length)return;
+  hi=i;skip=true;set(JSON.parse(hist[i]));skip=false;
+}
+F.forEach(k=>$(k).addEventListener("input",()=>{clearTimeout(snap.t);snap.t=setTimeout(snap,400);},{passive:true}));
+$("name").addEventListener("input",()=>render(),{passive:true});
+$("undo").onclick=()=>go(-1);
+$("redo").onclick=()=>go(1);
+addEventListener("keydown",e=>{
+  if(!(e.ctrlKey||e.metaKey))return;
+  const z=e.key.toLowerCase();
+  if(z==="z"){e.preventDefault();go(e.shiftKey?1:-1);}
+  else if(z==="y"){e.preventDefault();go(1);}}
+);
+$("dup").onclick=()=>{
+  $("name").value=$("name").value+" (copie)";
+  scheduleDraw();snap();render();say("Pack dupliqué : changez le prix puis enregistrez.");
+};
+$("newPack").onclick=()=>{
+  set({name:"Nouveau Pack",ar:"",svc:"Son professionnel\nÉclairage de salle",plabel:"À partir de",price:"500",unit:"DT",tag:"Créateurs de moments magiques",phones:"26 48 49 49 | 55 44 65 12",handle:"instagram.com/luna.events.sfax",fmt:"1350",theme:"or",font:"Cinzel",frame:"double",rtl:"0",wm:"0",old:"",end:"",promo:"",qr:"https://www.instagram.com/luna.events.sfax/"});
+  say("Nouveau pack créé. Personnalisez puis enregistrez.");
+  $("name").focus();
+  $("name").select();
+};
+
+/* Configuration et UI du Comparatif */
+const CD={title:"Comparatif de nos offres",sub:"Choisissez la formule adaptée à votre événement",mkt:"Des solutions adaptées à tous les budgets.",yes:"Inclus",no:"Non inclus",badge:"⭐ Recommandé",bcol:"or",bcus:"#c0262d",bstyle:"grad",bpos:"top",balign:"center",bsize:"m",cta:"Réservez votre date dès maintenant"},CK=["title","sub","mkt","yes","no","badge","cta"];
+const BADGES=["⭐ Recommandé","🏆 Meilleur choix","👑 Premium","🔥 Top vente","💎 Luxe"],
+BCOL={or:{n:"Or",c:"#c9a24a"},rouge:{n:"Rouge",c:"#c0262d"},violet:{n:"Violet",c:"#6d3fd1"},emeraude:{n:"Émeraude",c:"#0f9d6b"},rose:{n:"Rose",c:"#e0508f"},noir:{n:"Noir",c:"#14110c"},blanc:{n:"Blanc",c:"#ffffff"}},
+BSTY={grad:"Dégradé",solid:"Plein",outline:"Contour",ribbon:"Ruban"},BPOS={top:"À cheval (haut)",above:"Au-dessus",bottom:"À cheval (bas)"},
+BALN={left:"Gauche",center:"Centre",right:"Droite"},BSZL={s:"S",m:"M",l:"L",xl:"XL"},BSZ={s:.8,m:1,l:1.25,xl:1.5},hz=(m,k)=>Object.prototype.hasOwnProperty.call(m,k);
+
+function bSan(c){
+  c.badge=String(c.badge==null?CD.badge:c.badge).slice(0,28);
+  if(!hz(BCOL,c.bcol)&&c.bcol!=="custom")c.bcol=CD.bcol;
+  if(typeof c.bcus!=="string"||!/^#[0-9a-f]{6}$/i.test(c.bcus))c.bcus=CD.bcus;
+  [["bstyle",BSTY],["bpos",BPOS],["balign",BALN],["bsize",BSZ]].forEach(([k,m])=>{if(typeof c[k]!=="string"||!hz(m,c[k]))c[k]=CD[k];});
+}
+const hx=h=>[1,3,5].map(i=>parseInt(h.slice(i,i+2),16)),mixc=(a,b,t)=>{const A=hx(a),B=hx(b);return"#"+A.map((v,i)=>Math.round(v+(B[i]-v)*t).toString(16).padStart(2,"0")).join("");},lum=h=>{const[r,g,b]=hx(h);return(.299*r+.587*g+.114*b)/255;};
+function bLook(C){
+  if(C.bcol==="or")return{base:"#c9a24a",stops:["#8a6a1f","#f6e3a1","#c9a24a","#f6e3a1","#8a6a1f"],text:"#17110a",border:"#fff3c4"};
+  const b=C.bcol==="custom"?C.bcus:BCOL[C.bcol].c,L=lum(b);
+  return{base:b,stops:[mixc(b,"#000000",.3),mixc(b,"#ffffff",.3),b,mixc(b,"#ffffff",.3),mixc(b,"#000000",.3)],text:L>.6?"#17110a":"#ffffff",border:L<.2?"#f6e3a1":L>.85?"#c9a24a":mixc(b,"#ffffff",.55)};
+}
+function bFit(g,txt,C,cw,sq,W){
+  const bs=BSZ[C.bsize]||1,bh=(sq?34:40)*bs,mw=Math.max(cw+30,220*bs);let f=(sq?17:20)*bs;
+  for(;f>10;f--){g.font=`700 ${f}px Cinzel,serif`;if(g.measureText(txt).width<=mw)break;}
+  g.font=`700 ${f}px Cinzel,serif`;
+  return{bh,bf:f,bw:Math.min(W-120,Math.max(cw*.8,g.measureText(txt).width+(C.bstyle==="ribbon"?bh*.64+26:44)))};
+}
+function badgeDraw(g,x,y,w,h,bf,txt,C,T){
+  const L=bLook(C),st=C.bstyle,n=h*.32;
+  const path=()=>{
+    g.beginPath();
+    if(st==="ribbon"){g.moveTo(x,y);g.lineTo(x+w,y);g.lineTo(x+w-n,y+h/2);g.lineTo(x+w,y+h);g.lineTo(x,y+h);g.lineTo(x+n,y+h/2);g.closePath();}
+    else if(g.roundRect)g.roundRect(x,y,w,h,h/2);
+    else g.rect(x,y,w,h);
+  };
+  g.save();let tc=L.text;
+  if(st==="outline"){
+    tc=T.dark?(lum(L.base)<.45?mixc(L.base,"#ffffff",.55):L.base):(lum(L.base)>.6?mixc(L.base,"#000000",.5):L.base);
+    path();g.fillStyle=T.dark?"rgba(0,0,0,.55)":"rgba(255,255,255,.88)";g.fill();g.strokeStyle=tc;g.lineWidth=Math.max(2,h*.075);g.stroke();
+  }else{
+    g.save();g.shadowColor="rgba(0,0,0,.55)";g.shadowBlur=20;g.shadowOffsetY=6;
+    if(st==="solid")g.fillStyle=L.base;
+    else{const gr=g.createLinearGradient(x,0,x+w,0);L.stops.forEach((c,j)=>gr.addColorStop(j/4,c));g.fillStyle=gr;}
+    path();g.fill();g.restore();path();g.strokeStyle=L.border;g.lineWidth=1.5;g.stroke();
+  }
+  g.fillStyle=tc;g.font=`700 ${bf}px Cinzel,serif`;g.textAlign="center";g.fillText(txt,x+w/2,y+h/2+bf*.35);g.restore();
+}
+
+let cmpPrevRaf=null;
+function scheduleCmpPrev(){
+  if(cmpPrevRaf)return;
+  cmpPrevRaf=requestAnimationFrame(()=>{cmpPrevRaf=null;cmpPrev();});
+}
+
+function cmpPrev(){
+  const g=$("cmpPrev").getContext("2d"),T=TH[$("theme").value]||TH.or,W=560,txt=(CM.badge||"").toUpperCase();
+  g.fillStyle=T.bg[1];g.fillRect(0,0,W,170);const px=90,pw=380,cy=75,ch=60;
+  g.strokeStyle=T.gold[2];g.lineWidth=2;g.beginPath();
+  if(g.roundRect)g.roundRect(px,cy,pw,ch,14);else g.rect(px,cy,pw,ch);
+  g.stroke();
+  if(!txt)return;
+  const m=bFit(g,txt,CM,150,false,W),y=CM.bpos==="above"?cy-6-m.bh:CM.bpos==="bottom"?cy+ch-m.bh/2:cy-m.bh/2;
+  let x=CM.balign==="left"?px:CM.balign==="right"?px+pw-m.bw:px+pw/2-m.bw/2;
+  x=Math.max(10,Math.min(W-10-m.bw,x));
+  badgeDraw(g,x,y,m.bw,m.bh,m.bf,txt,CM,T);
+}
+
+function bUI(){
+  const pr=(b,on)=>b.setAttribute("aria-pressed",on),
+  seg=(id,map,key)=>{
+    const box=$(id);box.textContent="";
+    Object.keys(map).forEach(k=>{
+      const b=el("button","",typeof map[k]==="string"?map[k]:BSZL[k]);
+      b.type="button";pr(b,CM[key]===k);
+      b.onclick=()=>{CM[key]=k;bUI();};
+      box.append(b);
+    });
+  };
+  const tb=$("cmpBTx");tb.textContent="";
+  BADGES.forEach(t=>{
+    const b=el("button","",t);b.type="button";pr(b,CM.badge===t);
+    b.onclick=()=>{CM.badge=t;$("cm_badge").value=t;bUI();};
+    tb.append(b);
+  });
+  const cb=$("cmpBCol");cb.textContent="";
+  Object.keys(BCOL).forEach(k=>{
+    const b=el("button","sw");b.type="button";b.style.background=BCOL[k].c;b.title=BCOL[k].n;
+    b.setAttribute("aria-label","Couleur "+BCOL[k].n);pr(b,CM.bcol===k);
+    b.onclick=()=>{CM.bcol=k;bUI();};
+    cb.append(b);
+  });
+  const ci=document.createElement("input");ci.type="color";ci.value=CM.bcus;ci.title=ci.ariaLabel="Couleur personnalisée";ci.className=CM.bcol==="custom"?"on":"";
+  ci.oninput=()=>{CM.bcus=ci.value;CM.bcol="custom";ci.className="on";cb.querySelectorAll(".sw").forEach(b=>pr(b,false));scheduleCmpPrev();};
+  cb.append(ci);
+  seg("cmpBSty",BSTY,"bstyle");seg("cmpBPos",BPOS,"bpos");seg("cmpBAln",BALN,"balign");seg("cmpBSz",BSZL,"bsize");
+  scheduleCmpPrev();
+}
+$("cm_badge").oninput=()=>{CM.badge=$("cm_badge").value.slice(0,28);bUI();};
+$("cmpAll").onclick=()=>{packs.forEach(p=>{if(CM.order.length<6&&!CM.order.includes(p.name))CM.order.push(p.name);});cmpUI();};
+$("cmpNone").onclick=()=>{CM.order=[];CM.rec="";cmpUI();};
+
+function cmpLoad(){
+  let c=null;try{c=JSON.parse(localStorage.getItem("luna.cmp"));}catch(e){}
+  c=Object.assign({order:[],rec:""},CD,c&&typeof c==="object"?c:{});
+  c.order=(Array.isArray(c.order)?c.order:[]).filter(n=>packs.some(p=>p.name===n)).slice(0,6);
+  bSan(c);return c;
+}
+
+function cmpUI(){
+  const L=$("cmpList"),O=$("cmpOrd"),R=$("cmpRec"),n=CM.order.length;
+  if(!CM.order.includes(CM.rec))CM.rec="";
+  L.textContent="";O.textContent="";R.textContent="";
+  if(packs.length<2)L.append(el("div","empty","Enregistrez au moins 2 packs pour utiliser le comparatif."));
+  packs.forEach(p=>{
+    const lb=el("label","ck"),c=document.createElement("input");
+    c.type="checkbox";c.checked=CM.order.includes(p.name);c.disabled=!c.checked&&n>=6;
+    if(c.checked)c.setAttribute("checked","");
+    c.setAttribute("aria-label","Inclure "+p.name+" dans le comparatif");
+    c.onchange=()=>{if(c.checked){c.setAttribute("checked","");CM.order.push(p.name);}else{c.removeAttribute("checked");CM.order=CM.order.filter(x=>x!==p.name);}cmpUI();};
+    lb.append(c,el("span","",p.name));L.append(lb);
+  });
+  if(!n)O.append(el("div","empty","Cochez des packs pour définir leur ordre."));
+  CM.order.forEach((nm,i)=>{
+    const r=el("div","pk");r.append(el("b","",(i+1)+" →"),el("span","",nm+(nm===CM.rec?" ★":"")));
+    ["↑","↓"].forEach((s,j)=>{
+      const b=el("button","",s);b.type="button";b.setAttribute("aria-label",(j?"Descendre ":"Monter ")+nm);
+      b.disabled=j?i===n-1:i===0;
+      b.onclick=()=>{const k=i+(j?1:-1);[CM.order[i],CM.order[k]]=[CM.order[k],CM.order[i]];cmpUI();};
+      r.append(b);
+    });
+    O.append(r);
+  });
+  [["","Aucun"],...CM.order.map(x=>[x,x])].forEach(([v,t])=>{
+    const lb=el("label","ck"),c=document.createElement("input");
+    c.type="radio";c.name="cmpr";c.checked=CM.rec===v;
+    if(c.checked)c.setAttribute("checked","");
+    c.setAttribute("aria-label","Définir "+(v||"aucun")+" comme pack recommandé");
+    c.onchange=()=>{CM.rec=v;};
+    lb.append(c,el("span","",t));R.append(lb);
+  });
+  $("cmpCount").textContent=n+(n>1?" packs sélectionnés":" pack sélectionné");
+  $("cmpOk").disabled=n<2||n>6;
+  $("cmpHint").textContent=n<2?"Sélectionnez au moins 2 packs.":n>=6?"Maximum atteint : 6 packs.":"";
+  bUI();
+}
+
+/* Accessibilité WCAG 2.2 : Gestion du focus et fermeture modale */
+let lastFocusedElement=null;
+function trapModalFocus(e){
+  if($("cmpM").hidden||e.key!=="Tab")return;
+  const focusables=$("cmpM").querySelectorAll('button:not([disabled]), input:not([disabled]), select:not([disabled]), textarea:not([disabled]), [tabindex="0"]');
+  if(!focusables.length)return;
+  const first=focusables[0],last=focusables[focusables.length-1];
+  if(e.shiftKey){if(document.activeElement===first){e.preventDefault();last.focus();}}
+  else{if(document.activeElement===last){e.preventDefault();first.focus();}}
+}
+
+function cmpOpen(){
+  lastFocusedElement=document.activeElement;
+  CM=cmpLoad();
+  if(!CM.order.length&&packs.length>=2){
+    CM.order=packs.slice(0,3).map(p=>p.name);
+    const pr=CM.order.find(x=>/prestige/i.test(x));
+    if(pr&&!CM.rec)CM.rec=pr;
+  }
+  CK.forEach(k=>$("cm_"+k).value=CM[k]);
+  cmpUI();
+  $("cmpM").hidden=false;
+  document.body.style.overflow="hidden";
+  document.addEventListener("keydown",trapModalFocus);
+  setTimeout(()=>$("cmpX").focus(),40);
+}
+
+const cmpClose=()=>{
+  $("cmpM").hidden=true;
+  document.body.style.overflow="";
+  document.removeEventListener("keydown",trapModalFocus);
+  if(lastFocusedElement&&typeof lastFocusedElement.focus==="function"){
+    lastFocusedElement.focus();
+  }else{
+    $("cmp").focus();
+  }
+};
+
+$("cmp").onclick=cmpOpen;
+$("cmpX").onclick=cmpClose;
+$("cmpM").addEventListener("click",e=>{if(e.target===$("cmpM"))cmpClose();});
+addEventListener("keydown",e=>{if(e.key==="Escape"&&!$("cmpM").hidden){e.preventDefault();cmpClose();}});
+
+$("back").onclick=()=>{cmpActive=false;scheduleDraw();say("Retour à l’affiche.");};
+$("cmpOk").onclick=()=>{
+  if(CM.order.length<2||CM.order.length>6)return;
+  CK.forEach(k=>CM[k]=$("cm_"+k).value.trim());
+  ["title","yes","no"].forEach(k=>{if(!CM[k])CM[k]=CD[k];});
+  try{localStorage.setItem("luna.cmp",JSON.stringify(CM));}catch(e){}
+  cmpClose();cmpActive=true;scheduleDraw();
+  say("Comparatif généré ("+CM.order.length+" packs).");
+};
+
+/* Partage & Exportation */
+$("shr").onclick=()=>cv.toBlob(async b=>{
+  const f=new File([b],"luna-affiche.png",{type:"image/png"});
+  if(navigator.canShare&&navigator.canShare({files:[f]})){
+    try{await navigator.share({files:[f],title:$("name").value});}catch(e){}
+  }else say("Partage direct indisponible : utilisez Télécharger.");
+},"image/png");
+
+$("zip").onclick=async()=>{
+  const btn=$("zip");
+  if(!window.JSZip){say("ZIP indisponible : bibliothèque non chargée.");return;}
+  if(btn.disabled)return;
+  btn.disabled=true;
+  say("Création de l’archive ZIP en cours...");
+  const d=get();
+  try{
+    const z=new JSZip();
+    for(const[f,n]of[["1350","portrait"],["1080","carre"],["1920","story"]]){
+      draw({...d,fmt:f,_cmp:cmpActive?1:0});
+      z.file(`luna-${slug(d.name)}-${n}.png`,await canvasToBlob("image/png"));
+    }
+    const blob=await z.generateAsync({type:"blob",compression:"STORE"});
+    dlFile(`luna-${slug(d.name)}.zip`,blob,"application/zip");
+  }catch(e){say("Impossible de créer le ZIP : "+((e&&e.message)||"erreur")+".");}
+  finally{scheduleDraw();btn.disabled=false;}
+};
+
+
+/* ============================================================
+   PDF EXPORT - Catalogue multi-affiches avec jsPDF
+   ============================================================ */
+let pdfLastFocused=null;
+function pdfUI(allDefault){
+  const L=$("pdfList");
+  const sel=pdfGetSelected();
+  L.textContent="";
+  packs.forEach((p,i)=>{
+    const lb=el("label","ck"),c=document.createElement("input");
+    c.type="checkbox";
+    c.checked=allDefault?true:(sel.length?sel.includes(i):true);
+    if(c.checked)c.setAttribute("checked","");
+    c.setAttribute("aria-label","Inclure "+p.name+" dans le PDF");
+    c.dataset.idx=i;
+    c.onchange=()=>{if(c.checked)c.setAttribute("checked","");else c.removeAttribute("checked");pdfUpdateCount();};
+    lb.append(c,el("span","",p.name));L.append(lb);
+  });
+  pdfUpdateCount();
+}
+function pdfGetSelected(){
+  return Array.from(document.querySelectorAll('#pdfList input[type="checkbox"]:checked')).map(c=>parseInt(c.dataset.idx));
+}
+function pdfUpdateCount(){
+  const n=pdfGetSelected().length;
+  $("pdfCount").textContent=n+(n>1?" affiches sélectionnées":" affiche sélectionnée");
+  $("pdfOk").disabled=n<1;
+  $("pdfHint").textContent=n<1?"Sélectionnez au moins 1 affiche.":"";
+}
+function trapPdfFocus(e){
+  if($("pdfM").hidden||e.key!=="Tab")return;
+  const focusables=$("pdfM").querySelectorAll('button:not([disabled]), input:not([disabled]), [tabindex="0"]');
+  if(!focusables.length)return;
+  const first=focusables[0],last=focusables[focusables.length-1];
+  if(e.shiftKey){if(document.activeElement===first){e.preventDefault();last.focus();}}
+  else{if(document.activeElement===last){e.preventDefault();first.focus();}}
+}
+function pdfOpen(){
+  pdfLastFocused=document.activeElement;
+  pdfUI(true);
+  $("pdfM").hidden=false;
+  document.body.style.overflow="hidden";
+  document.addEventListener("keydown",trapPdfFocus);
+  setTimeout(()=>$("pdfX").focus(),40);
+}
+const pdfClose=()=>{
+  $("pdfM").hidden=true;
+  document.body.style.overflow="";
+  document.removeEventListener("keydown",trapPdfFocus);
+  if(pdfLastFocused&&typeof pdfLastFocused.focus==="function"){pdfLastFocused.focus();}
+  else{$("pdf").focus();}
+};
+
+$("pdf").onclick=pdfOpen;
+$("pdfX").onclick=pdfClose;
+$("pdfM").addEventListener("click",e=>{if(e.target===$("pdfM"))pdfClose();});
+addEventListener("keydown",e=>{if(e.key==="Escape"&&!$("pdfM").hidden){e.preventDefault();pdfClose();}});
+$("pdfAll").onclick=()=>{document.querySelectorAll('#pdfList input[type="checkbox"]').forEach(c=>{c.checked=true;c.setAttribute("checked","");});pdfUpdateCount();};
+$("pdfNone").onclick=()=>{document.querySelectorAll('#pdfList input[type="checkbox"]').forEach(c=>{c.checked=false;c.removeAttribute("checked");});pdfUpdateCount();};
+
+$("pdfOk").onclick=async()=>{
+  const btn=$("pdfOk");
+  if(!window.jspdf){say("PDF indisponible : bibliothèque jsPDF non chargée.");return;}
+  if(btn.disabled)return;
+  btn.disabled=true;
+  say("Génération du PDF en cours...");
+
+  const selected=pdfGetSelected();
+  if(!selected.length){btn.disabled=false;return;}
+
+  try{
+    const {jsPDF}=window.jspdf;
+
+    /* Canvas dimensions for portrait poster: 1080x1350 */
+    const CW=1080,CH=1350;
+    /* PDF page: A4 portrait ratio but sized to fit poster */
+    const pageW=210,pageH=pageW*(CH/CW);
+
+    const doc=new jsPDF({orientation:"portrait",unit:"mm",format:[pageW,pageH]});
+
+    for(let si=0;si<selected.length;si++){
+      const p=packs[selected[si]];
+      if(!p)continue;
+      if(si>0)doc.addPage([pageW,pageH]);
+
+      /* Draw the poster on canvas */
+      const d={...p,fmt:"1350",_cmp:0};
+      draw(d);
+
+      /* Get high-res image from canvas */
+      const imgData=cv.toDataURL("image/png",1.0);
+      doc.addImage(imgData,"PNG",0,0,pageW,pageH);
+    }
+
+    /* Restore current view */
+    scheduleDraw();
+
+    doc.save("LunaEvents_Catalogue.pdf");
+    say("PDF généré avec "+selected.length+" affiche"+(selected.length>1?"s":"")+" !");
+  }catch(e){
+    say("Impossible de créer le PDF : "+((e&&e.message)||"erreur")+".");
+  }finally{
+    btn.disabled=false;
+    pdfClose();
+  }
+};
+
+/* Initialisation */
+try{
+  const s=localStorage.getItem("luna.packs");
+  if(s){const a=JSON.parse(s);packs=Array.isArray(a)?a.map(p=>validPack(p,true)).filter(Boolean):[];}
+}catch(e){packs=[];}
+if(!Array.isArray(packs)||!packs.length)packs=PRESETS.slice();
+render();
+
+let dr=null;
+try{dr=validPack(JSON.parse(localStorage.getItem("luna.draft")),false);}catch(e){}
+set(dr&&dr.name!==undefined?dr:PRESETS[1]);
+</script>
+</body>
+</html>

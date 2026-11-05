@@ -1,0 +1,23 @@
+{
+  "name": "Luna Events · Générateur d'affiches",
+  "short_name": "Luna Events",
+  "description": "Générateur d'affiches et comparatifs de packs pour Luna Events Sfax",
+  "start_url": "./index.html",
+  "display": "standalone",
+  "background_color": "#0a0907",
+  "theme_color": "#0a0907",
+  "lang": "fr",
+  "icons": [
+    {
+      "src": "assets/favicon.png",
+      "sizes": "64x64",
+      "type": "image/png"
+    },
+    {
+      "src": "assets/logo-luna.png",
+      "sizes": "192x192 512x512",
+      "type": "image/png",
+      "purpose": "any maskable"
+    }
+  ]
+}
